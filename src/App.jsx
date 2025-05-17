@@ -7,6 +7,7 @@ import MultipleMarkers from './components/MultipleMarkers';
 import MovingMarker from './components/MovingMarker';
 import SmoothMovingMarker from './components/SmoothMovingMarker';
 import StickyMapMovingMarker from './components/StickyMapMovingMarker';
+import NearbyMovingMarker from './components/NearByMovingMarker';
 
 function App() {
 
@@ -27,6 +28,7 @@ function App() {
       {/* <MovingMarker/> */}
       {/* <SmoothMovingMarker/> */}
       {/* <StickyMapMovingMarker/> */}
+      {/* <NearbyMovingMarker/> */}
     </div>
   );
 }
