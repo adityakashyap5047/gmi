@@ -6,6 +6,7 @@ import CurrentMarker from './components/CurrentMarker';
 import MultipleMarkers from './components/MultipleMarkers';
 import MovingMarker from './components/MovingMarker';
 import SmoothMovingMarker from './components/SmoothMovingMarker';
+import StickyMapMovingMarker from './components/StickyMapMovingMarker';
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
       {/* <MultipleMarkers locations={locations} /> */}
       {/* <MovingMarker/> */}
       {/* <SmoothMovingMarker/> */}
+      {/* <StickyMapMovingMarker/> */}
     </div>
   );
 }
