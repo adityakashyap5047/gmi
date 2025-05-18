@@ -7,6 +7,7 @@ import SmoothMovingMarker from './components/SmoothMovingMarker';
 import StickyMapMovingMarker from './components/StickyMapMovingMarker';
 import NearbyMovingMarker from './components/NearByMovingMarker';
 import MovingCurrentMarker from './components/MovingCurrentMarker';
+import Home from './components/Home';
 
 function App() {
 
@@ -20,7 +21,6 @@ function App() {
 
   return (
     <div>
-      <h1>Google Map with Marker</h1>
       {/* <Map lat={28.6139} lng={77.2090} /> */}
       {/* <CurrentMarker/> */}
       {/* <MultipleMarkers locations={locations} /> */}
@@ -29,6 +29,7 @@ function App() {
       {/* <StickyMapMovingMarker/> */}
       {/* <NearbyMovingMarker/> */}
       {/* <MovingCurrentMarker/> */}
+      <Home/>
     </div>
   );
 }
