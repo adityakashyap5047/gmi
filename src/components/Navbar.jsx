@@ -3,10 +3,6 @@ import { motion } from "framer-motion";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Features", href: "#" },
-  { name: "Pricing", href: "#" },
-  { name: "About", href: "#" },
-  { name: "Contact", href: "#" },
   { name: "Login", href: "/login" },
   { name: "Register", href: "/register" },
 ];

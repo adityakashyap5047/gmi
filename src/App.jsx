@@ -33,18 +33,14 @@ function App() {
     //   {/* <StickyMapMovingMarker/> */}
     //   {/* <NearbyMovingMarker/> */}
     //   {/* <MovingCurrentMarker/> */}
-    //   <Home/>
-    //   {/* <Register/> */}
-    //   {/* <Login/> */}
     // </div>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />            {/* Home page */}
-        <Route path="/login" element={<Login />} />      {/* Login page */}
-        <Route path="/register" element={<Register />} />{/* Register page */}
-        {/* <Route path="/map" element={<LiveMap />} />      Live Map page */}
-      </Routes>
-    </BrowserRouter>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />            {/* Home page */}
+          <Route path="/login" element={<Login />} />      {/* Login page */}
+          <Route path="/register" element={<Register />} />{/* Register page */}
+        </Routes>
+      </BrowserRouter>
   );
 }
 

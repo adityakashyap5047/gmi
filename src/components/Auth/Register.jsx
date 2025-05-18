@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -34,19 +35,27 @@ export default function Register() {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       setIsSubmitting(true);
       setSuccessMsg("");
-      // Simulate API call (replace with your API logic)
-      setTimeout(() => {
+      const res = await axios.post(import.meta.env.VITE_PUBLIC_API_URL + "/api/auth/register", {
+        email: form.email,
+        password: form.password,
+      });
+      if (res.status !== 200) {
+        setErrors({ server: "Registration failed. Please try again." });
         setIsSubmitting(false);
-        setSuccessMsg("Registration successful! You can now login.");
-        setForm({ email: "", password: "", confirmPassword: "" });
-      }, 1500);
+        return;
+      }
+      setIsSubmitting(false);
+      setSuccessMsg("Registration successful! You can now login.");
+      alert("Registration successful! You can now login.");
+      setForm({ email: "", password: "", confirmPassword: "" });
+      setErrors({});
     }
   };
 

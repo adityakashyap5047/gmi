@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { useUser } from "../../context/UserContext";
 
 export default function Login() {
+
+  const {setUser} = useUser();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -29,27 +33,21 @@ export default function Login() {
     setErrorMsg("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       setIsSubmitting(true);
       setErrorMsg("");
-      // Simulate API call - replace this with your backend login API
-      setTimeout(() => {
-        setIsSubmitting(false);
-        // For demo, reject if email is not "user@example.com" or password !== "password123"
-        if (
-          form.email === "user@example.com" &&
-          form.password === "password123"
-        ) {
-          alert("Login successful!");
-          // redirect or update state as needed here
-        } else {
-          setErrorMsg("Invalid email or password");
-        }
-      }, 1500);
+      const res = await axios.post(import.meta.env.VITE_PUBLIC_API_URL + "/api/auth/login", form);
+      if (res.status === 200) {
+        setUser(res.data?.user);
+        alert("Login successful!");
+      } else {
+        setErrorMsg("Invalid email or password");
+      }
+      setIsSubmitting(false);
     }
   };
 
