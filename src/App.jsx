@@ -1,5 +1,3 @@
-// App.jsx
-
 import React from 'react';
 import Map from './components/Map';
 import CurrentMarker from './components/CurrentMarker';
@@ -8,6 +6,7 @@ import MovingMarker from './components/MovingMarker';
 import SmoothMovingMarker from './components/SmoothMovingMarker';
 import StickyMapMovingMarker from './components/StickyMapMovingMarker';
 import NearbyMovingMarker from './components/NearByMovingMarker';
+import MovingCurrentMarker from './components/MovingCurrentMarker';
 
 function App() {
 
@@ -29,6 +28,7 @@ function App() {
       {/* <SmoothMovingMarker/> */}
       {/* <StickyMapMovingMarker/> */}
       {/* <NearbyMovingMarker/> */}
+      {/* <MovingCurrentMarker/> */}
     </div>
   );
 }
