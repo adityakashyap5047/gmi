@@ -8,6 +8,10 @@ import StickyMapMovingMarker from './components/StickyMapMovingMarker';
 import NearbyMovingMarker from './components/NearByMovingMarker';
 import MovingCurrentMarker from './components/MovingCurrentMarker';
 import Home from './components/Home';
+import Register from './components/Auth/Register';
+import Login from './components/Auth/Login';
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
 
@@ -20,17 +24,27 @@ function App() {
 
 
   return (
-    <div>
-      {/* <Map lat={28.6139} lng={77.2090} /> */}
-      {/* <CurrentMarker/> */}
-      {/* <MultipleMarkers locations={locations} /> */}
-      {/* <MovingMarker/> */}
-      {/* <SmoothMovingMarker/> */}
-      {/* <StickyMapMovingMarker/> */}
-      {/* <NearbyMovingMarker/> */}
-      {/* <MovingCurrentMarker/> */}
-      <Home/>
-    </div>
+    // <div>
+    //   {/* <Map lat={28.6139} lng={77.2090} /> */}
+    //   {/* <CurrentMarker/> */}
+    //   {/* <MultipleMarkers locations={locations} /> */}
+    //   {/* <MovingMarker/> */}
+    //   {/* <SmoothMovingMarker/> */}
+    //   {/* <StickyMapMovingMarker/> */}
+    //   {/* <NearbyMovingMarker/> */}
+    //   {/* <MovingCurrentMarker/> */}
+    //   <Home/>
+    //   {/* <Register/> */}
+    //   {/* <Login/> */}
+    // </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />            {/* Home page */}
+        <Route path="/login" element={<Login />} />      {/* Login page */}
+        <Route path="/register" element={<Register />} />{/* Register page */}
+        {/* <Route path="/map" element={<LiveMap />} />      Live Map page */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 

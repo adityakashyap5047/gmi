@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 
 const navLinks = [
-  { name: "Home", href: "#" },
+  { name: "Home", href: "/" },
   { name: "Features", href: "#" },
   { name: "Pricing", href: "#" },
   { name: "About", href: "#" },
   { name: "Contact", href: "#" },
+  { name: "Login", href: "/login" },
+  { name: "Register", href: "/register" },
 ];
 
 export default function Navbar() {
@@ -22,7 +24,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         {/* Logo / Site Title */}
         <motion.a
-          href="#"
+          href="/"
           className="text-2xl font-bold text-white"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
