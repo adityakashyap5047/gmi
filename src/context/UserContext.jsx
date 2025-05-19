@@ -15,8 +15,13 @@ export const UserProvider = ({ children }) => {
     sessionStorage.setItem("user", JSON.stringify(newUser));
   };
 
+  const logout = () => {
+    sessionStorage.removeItem("user");
+    setUser(null);
+  };
+
   return (
-    <UserContext.Provider value={{ user, setUser: updateUser }}>
+    <UserContext.Provider value={{ user, setUser: updateUser, logout }}>
       {children}
     </UserContext.Provider>
   );

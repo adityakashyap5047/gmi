@@ -1,14 +1,27 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
-const navLinks = [
-  { name: "Home", href: "/" },
-  { name: "Login", href: "/login" },
-  { name: "Register", href: "/register" },
-];
+import { useUser } from "../context/UserContext";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const {user, logout} = useUser();
+
+  const navLinks = [
+    { name: "Home", href: "/" },
+    ...(user
+      ? [
+          {
+            name: "Logout",
+            onClick: () => {
+              logout();           
+            },
+          },
+        ]
+      : [
+          { name: "Login", href: "/login" },
+          { name: "Register", href: "/register" },
+        ]),
+  ];
 
   return (
     <motion.nav
@@ -30,8 +43,9 @@ export default function Navbar() {
 
         {/* Desktop Links */}
         <ul className="hidden md:flex space-x-8 text-white font-semibold">
-          {navLinks.map(({ name, href }) => (
+          {navLinks.map(({ name, href, onClick }) => (
             <motion.li
+              onClick={onClick}
               key={name}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}

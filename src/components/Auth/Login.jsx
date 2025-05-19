@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useUser } from "../../context/UserContext";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
+
+  const navigate = useNavigate();
 
   const {setUser} = useUser();
   const [form, setForm] = useState({
@@ -13,6 +16,7 @@ export default function Login() {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   // Basic validation
   const validate = () => {
@@ -40,13 +44,20 @@ export default function Login() {
     if (Object.keys(validationErrors).length === 0) {
       setIsSubmitting(true);
       setErrorMsg("");
-      const res = await axios.post(import.meta.env.VITE_PUBLIC_API_URL + "/api/auth/login", form);
-      if (res.status === 200) {
-        setUser(res.data?.user);
-        alert("Login successful!");
-      } else {
+      try {
+        const res = await axios.post(import.meta.env.VITE_PUBLIC_API_URL + "/api/auth/login", form);
+        if (res.status === 200) {
+          setUser(res.data?.user);
+          setSuccessMsg("Login successful!");
+          navigate("/")
+        } else {
+          setErrorMsg("Invalid email or password");
+        }
+      } catch (error) {
+        console.error("Login error:", error);
         setErrorMsg("Invalid email or password");
       }
+      setForm({ email: "", password: "" });
       setIsSubmitting(false);
     }
   };
@@ -72,12 +83,17 @@ export default function Login() {
           </p>
         )}
 
+        {successMsg && (
+          <p className="bg-green-100 text-green-700 p-2 mb-4 rounded text-center">
+            {successMsg}
+          </p>
+        )}
+
         <div className="mb-4">
           <label htmlFor="email" className="block text-white font-semibold mb-1">
             Email
           </label>
           <input
-            type="email"
             name="email"
             id="email"
             value={form.email}
