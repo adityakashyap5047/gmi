@@ -10,7 +10,11 @@ export default function LiveTracking() {
   const watchIdRef = useRef(null);
 
   useEffect(() => {
-    if (!user || !user._id) return;
+    if (!user || !user._id) {
+      navigator.geolocation.clearWatch(watchIdRef.current);
+      setUserLocations([]);
+      return;
+    }
 
     watchIdRef.current = navigator.geolocation.watchPosition(
       (position) => {
@@ -31,12 +35,14 @@ export default function LiveTracking() {
   }, [user]);
 
   useEffect(() => {
-    socket.on("location-data", (locations) => {
+    const handleLocationData = (locations) => {
       setUserLocations(locations);
-    });
+    };
+
+    socket.on("location-data", handleLocationData);
 
     return () => {
-      socket.off("location-data");
+      socket.off("location-data", handleLocationData);
     };
   }, []);
 
