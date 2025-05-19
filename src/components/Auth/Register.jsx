@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Register() {
+
+  const navigate = useNavigate();
+
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -36,28 +40,41 @@ export default function Register() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
-    setErrors(validationErrors);
-    if (Object.keys(validationErrors).length === 0) {
-      setIsSubmitting(true);
-      setSuccessMsg("");
-      const res = await axios.post(import.meta.env.VITE_PUBLIC_API_URL + "/api/auth/register", {
-        email: form.email,
-        password: form.password,
-      });
-      if (res.status !== 200) {
+  e.preventDefault();
+  const validationErrors = validate();
+  setErrors(validationErrors);
+  if (Object.keys(validationErrors).length === 0) {
+    setIsSubmitting(true);
+    setSuccessMsg("");
+    try {
+      const res = await axios.post(
+        import.meta.env.VITE_PUBLIC_API_URL + "/api/auth/register",
+        form
+      );
+
+      if (res.status !== 201) {
         setErrors({ server: "Registration failed. Please try again." });
+        setForm({ email: "", password: "", confirmPassword: "" });
         setIsSubmitting(false);
         return;
       }
-      setIsSubmitting(false);
-      setSuccessMsg("Registration successful! You can now login.");
-      alert("Registration successful! You can now login.");
+
+      // success path
       setForm({ email: "", password: "", confirmPassword: "" });
+      setSuccessMsg("Registration successful! You can now login.");
       setErrors({});
+      navigate("/login");
+
+    } catch (error) {
+      console.log("Registration error:", error);
+      setErrors({ server: "Registration failed. Please try again." });
+      setForm({ email: "", password: "", confirmPassword: "" });
     }
-  };
+
+    setIsSubmitting(false);
+  }
+};
+
 
   return (
     <motion.div
@@ -74,6 +91,12 @@ export default function Register() {
           Create Account
         </h2>
 
+        {errors.server && (
+          <p className="bg-red-100 text-red-700 p-2 mb-4 rounded text-center">
+            {errors.server}
+          </p>
+        )}
+
         {successMsg && (
           <p className="bg-green-100 text-green-800 p-2 mb-4 rounded text-center">
             {successMsg}
@@ -85,7 +108,6 @@ export default function Register() {
             Email
           </label>
           <input
-            type="email"
             name="email"
             id="email"
             value={form.email}
