@@ -8,6 +8,7 @@ const containerStyle = {
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_PUBLIC_GOOGLE_MAP_API_KEY;
 
 const MapTracking = ({ locations }) => {
+
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: GOOGLE_MAPS_API_KEY,
   });
@@ -22,7 +23,7 @@ const MapTracking = ({ locations }) => {
     <GoogleMap
       mapContainerStyle={containerStyle}
       center={defaultCenter}
-      zoom={5}
+      zoom={15}
     >
       {locations.map((loc, index) => (
         <Marker
